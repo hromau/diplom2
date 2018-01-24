@@ -1,0 +1,33 @@
+﻿@model ModelLoginForm;
+@{
+    ViewData["Title"] = "Login Form";
+}
+
+<!DOCTYPE>
+<html>
+<head>
+    <title>Вход/Регистрация</title>
+    <link rel="stylesheet" href="~/css/stylesshet.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="~/js/site.js" defer></script>
+    <script src="~/js/responses.js"></script>
+</head>
+<body>
+    <div id="shapka"></div>
+    <div id="content">
+        <form class="vhod" asp-controller="Home" asp-action="GeneralForm">
+            <input type="text" class="text" asp-for="AccountNumber" placeholder="Номер зачетки" autocomplete="off" />
+            <input type="password" class="text" asp-for="Password" placeholder="Пароль" autocomplete="off">
+            <a asp-controller="Home" asp-action="RegistrationForm" class="biton">Регистрация</a>
+            <input type="submit" class="biton" value="Вход">
+        </form>
+        @*<form class="vhod" method="post">
+            <input type="text" class="text" name="accountNumber" placeholder="Номер зачетки" autocomplete="off" />
+            <input type="password" class="text" name="password" placeholder="Пароль" autocomplete="off">
+            <a asp-controller="Home" asp-action="RegistrationForm" class="biton">Регистрация</a>
+            <input type="submit" class="biton" value="Вход" onclick="getUser(accountNumber,password)">
+        </form>*@
+    </div>
+    <div id="podval"></div>
+</body>
+</html>

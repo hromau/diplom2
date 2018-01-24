@@ -1,0 +1,201 @@
+﻿@model ModelActiveUser;
+@{
+    ViewData["Title"] = "General Form";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="~/css/cabinet.css">
+    <script src="~/js/vue.js"></script>
+    <script src="~/js/cabinet.js" defer></script>
+    <script src="~/js/responses.js" defer></script>
+    <script id="template-schedule" type="text/x-template">
+        <div class="schedule">
+            <div class="t days-lessons">
+                <div class="h">
+                    <div class="r time">
+                        <div class="d lack"></div>
+                        <div class="d time-item" v-for="i in sch.maxLen" v-text="i"></div>
+                    </div>
+                </div>
+                <div class="b">
+                    <div class="r day" v-for="day, i in week">
+                        <div class="d day-name fp">
+                            <div class="day-name-f fc" v-text="days[i]"></div>
+                        </div>
+                        <div class="d lesson" v-for="lesson in day">
+                            <div class="l-name" v-text="lesson.name"></div>
+                            <div class="l-classroom" v-text="lesson.classroom"></div>
+                            <div class="l-teacher" v-text="lesson.teacher"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="template-request" type="text/x-template">
+        <form class="request" @@submit.prevent="$emit('submit')">
+            <textarea v-model="reason" rows="3" placeholder="Текст заявления"></textarea>
+            <div class="choose-date">
+                <div class="title">Дата:</div>
+                <div class="input-box">
+                    <label for="#choose-date-today">Сегодня: {{ (new Date).toLocaleDateString() }}</label>
+                    <input id="choose-date-today" type="radio" :checked="chooseDate === 'today'" @@click="chooseDate = 'today'">
+                </div>
+                <div class="input-box">
+                    <label for="#choose-date-choose">Выбрать дату</label>
+                    <input id="choose-date-choose" type="radio" :checked="chooseDate === 'choose'" @@click="chooseDate = 'choose'">
+                </div>
+                <div class="input-box">
+                    <input type="date" v-if="chooseDate === 'choose'" v-model="date">
+                </div>
+            </div>
+            <hr class="hr-full">
+            <div class="capcha">
+                <img :src="capcha.img">
+                <input class="capcha-text" required v-text="capcha.text" placeholder="Текст с картинки">
+                <input class="submit" type="button" value="Отправить">
+            </div>
+        </form>
+    </script>
+    <script id="template-reference" type="text/x-template">
+        <form class="reference" @@submit.prevent="$emit('submit')">
+            <div class="sel-box">
+                <label for="#type-select">Тип справки:</label>
+                <select id="type-select" required v-model="type">
+                    <option v-for="v in typeList" v-text="v" name="type-option" :value="v"></option>
+                </select>
+            </div>
+            <hr class="hr-full">
+            <div class="capcha">
+                <img :src="capcha.img">
+                <input class="capcha-text" required v-text="capcha.text" placeholder="Текст с картинки">
+                <input class="submit" type="button" value="Отправить">
+            </div>
+        </form>
+    </script>
+    <script id="template-calendar" type="text/x-template">
+        <div class="calendar">
+            <div class="c-header">
+                <div class="nav-arrow nav-arrow-left fpi fcenter" @@click="prevMonth">
+                    <div class="bl fc0 fg0"></div>
+                </div>
+                <div class="month" v-text="`${month.month} ${month.year}`"></div>
+                <div class="nav-arrow nav-arrow-right fpi fcenter" @@click="nextMonth">
+                    <div class="bl fc0 fg0"></div>
+                </div>
+            </div>
+            <div class="week-days">
+                <div class="week-days-item">Пн</div>
+                <div class="week-days-item">Вт</div>
+                <div class="week-days-item">Ср</div>
+                <div class="week-days-item">Чт</div>
+                <div class="week-days-item">Пт</div>
+                <div class="week-days-item">Сб</div>
+                <div class="week-days-item">Вс</div>
+            </div>
+            <div class="month-days">
+                <div class="row" v-for="week in month.weekList">
+                    <div class="day" v-for="day in week" :class="{ event: !!day.event }">
+                        <div class="number" v-text="day.number" :class="{ current: day.current }"></div>
+                        <div class="dropdown-menu" v-if="!!day.event">
+                            <div class="dropdown-item name" v-text="day.event.name"></div>
+                            <div class="dropdown-item" v-text="day.event.description"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</head>
+<body>
+    <div id="container" onload="getLessonMini()">
+        <div class="header"></div>
+        <div class="content">
+            <div class="cabinet-box">
+                <div class="left">
+                    <!-- тут ваша работа-->
+                    <div class="user-info-left">
+                        <div class="user-name">
+                            @Model.firstName
+                            @Model.lastName
+                        </div>
+                        <div class="group">
+                            @Model.groupName
+                        </div>
+                        <div class="number-book" title="Номер зачетной книжки">
+                            <!--<label asp-for="AccountNumber"></label>-->
+                            @Model.accountNumber
+                        </div>
+                        <div class="current-lesson l-item-box" onload="getLessonMini(getTimeLessonNow())">
+                            <!-- текущий урок-->
+                            <div class="l-title">Текущий урок</div>
+                            <div class="l-item">
+                                <div class="l-key">Предмет</div>
+                                <div class="l-value" id="lessonName">ТРПО</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Время</div>
+                                <div class="l-value" id="lessonTime">8:00 - 8:45</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Аудитория</div>
+                                <div class="l-value" id="room">411</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Преподаватель</div>
+                                <div class="l-value" id="lessonTeacher">Артем Викторович</div>
+                            </div>
+                        </div>
+                        <div class="next-lesson l-item-box" onload="getLessonMini(getTimeLessonNow()+1)">
+                            <!-- следующий-->
+                            <div class="l-title">Следующий урок</div>
+                            <div class="l-item">
+                                <div class="l-key">Предмет</div>
+                                <div class="l-value" id="lessonName">ТРПО</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Время</div>
+                                <div class="l-value" id="nextLessonTime">8:55 - 9:40</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Аудитория</div>
+                                <div class="l-value" id="room">411</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Преподаватель</div>
+                                <div class="l-value" id="lessonTeacher">Артем Викторович</div>
+                            </div>
+                        </div>
+                        <div class="calendar-event l-item-box">
+                            <!-- тут можно показывать не только сегодняшний-->
+                            <!-- праздник, но и просто ближайший-->
+                            <div class="l-title">Ближайшее событие</div>
+                            <div class="l-item">
+                                <div class="l-key">Дата</div>
+                                <div class="l-value">1 января</div>
+                            </div>
+                            <div class="l-item">
+                                <div class="l-key">Событие</div>
+                                <div class="l-value">Новый год</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="top fp fwr">
+                        <div class="top-wrp fp fc" v-for="wr in buttons">
+                            <div class="btn t1 fc" v-for="v, k in wr" v-text="v" :active="k === content" @@click="content = k"></div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <component :is="content" :cache="cache"></component>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>

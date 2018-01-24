@@ -1,0 +1,87 @@
+*{
+    list-style: none;
+    font: 14px/18px Arial;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body{
+    position: relative;
+    background: #edeef0;
+    margin: 0;
+    height: 100%;
+}
+#shapka{
+    position: relative;
+    background: #507299;
+    width: 100%;
+    height: 40px;
+}
+#podval{
+    position: absolute;
+    background: #507299;
+    width: 100%;
+    height: 30px;
+    bottom: 0;
+}
+#content{
+    background: #ffffff;
+    position: relative;
+    width: 40%;
+    height: 70%;
+    left: 30%;
+    top: 60px;
+}
+.vhod,.register{
+    position: relative;
+    left: 30%;
+    top: 30%;
+    width: 200px;
+}
+.vhod,.register input{
+    display: block;
+}
+.vhod,.register button{
+    position: relative;
+    float: left;
+}
+.text{
+    border: none;
+    border-bottom: 1px solid grey;
+    margin-bottom: 20px;
+    background: #ffe;
+    height: 30px;
+    width: 100%;
+    transition: .5s ease;
+}
+.text:focus{
+    outline: none;
+    border-bottom: 1px solid #507299;
+    box-shadow: 1px 5px 5px -3px #507299;
+    background: #ffe;
+}
+.biton{
+    position: relative;
+    float: left;
+    border: none;
+    background: #4285f4;
+    color: white;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+    box-shadow: 1px 5px 5px -3px #507299;
+    cursor: pointer;
+}
+.rig{
+    float: right;
+}
+.biton:active{
+    box-shadow: 1px 5px 15px -3px black;
+}
+.register{
+    top: 20%;
+}
+.register .biton{
+    margin-top: 20px;
+}

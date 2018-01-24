@@ -1,0 +1,357 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  color: #222;
+  background: #edeef0;
+}
+hr.hr-full 
+{
+  opacity: 0.3;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+input[type="button"] 
+{
+  margin: 0;
+  border: 0;
+  padding: 0.5vh;
+  background: #5181b8;
+  color: #fff;
+}
+.header,
+.footer 
+{
+  background: #507299;
+}
+.header
+{
+  height: 6vh;
+}
+.cabinet-box 
+{
+  position: absolute;
+  top: 8vh;
+  left: 15vw;
+  height: 90vh;
+  width: 70vw;
+  background: #fff;
+  box-shadow: 0 0 0.4vh rgba(0,0,0,0.3);
+}
+.cabinet-box .left,
+.cabinet-box .right
+{
+  display: inline-block;
+  vertical-align: top;
+}
+.cabinet-box .left
+{
+  height: 90vh;
+  width: calc(21vw - 1px);
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+.cabinet-box .right
+{
+  width: 49vw;
+}
+.cabinet-box .right .top
+{
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.cabinet-box .right .top,
+.cabinet-box .right .bottom 
+{
+  width: 49vw;
+}
+.cabinet-box .btn 
+{
+  width: 20vh;
+  text-align: center;
+  cursor: pointer;
+  height: 5vh;
+  line-height: 5vh;
+}
+.cabinet-box .btn:hover 
+{
+  background: #f5f7fa;
+}
+.cabinet-box .btn[active="true"] 
+{
+  background: #7293b6;
+  color: #fff;
+}
+.calendar .c-header
+{
+  height: 5vh;
+}
+.calendar .c-header .nav-arrow
+{
+  height: 5vh;
+  width: 3vw;
+  cursor: pointer;
+}
+.calendar .c-header .nav-arrow .bl 
+{
+  height: 1vw;
+  width: 1vw;
+  border-top: 3px solid #000;
+  border-left: 3px solid #000;
+  border-right: 3px solid rgba(0,0,0,0);
+  border-bottom: 3px solid rgba(0,0,0,0);
+}
+.calendar .c-header .nav-arrow:hover 
+{
+  background: #f5f7fa;
+}
+.calendar .c-header .nav-arrow-left .bl 
+{
+  transform: rotate(315deg);
+}
+.calendar .c-header .nav-arrow-right .bl 
+{
+  transform: rotate(135deg);
+}
+.calendar .c-header .month 
+{
+  display: inline-block;
+  width: 43vw;
+  line-height: 5vh;
+  text-align: center;
+  font-size: 3vh;
+}
+.calendar .c-header>* 
+{
+  vertical-align: top;
+}
+.calendar .week-days {
+  height: calc(5vh - 1px);
+}
+.calendar .week-days-item {
+  display: inline-block;
+  width: 7vw;
+  line-height: 5vh;
+  text-align: center;
+  font-size: 3vh;
+  font-weight: bold;
+}
+.calendar .week-days-item:nth-child(6),
+.calendar .week-days-item:nth-child(7) {
+  background: #ffe7e7;
+}
+.calendar .month-days .row {
+  height: 7vh;
+}
+.calendar .month-days .row .day {
+  position: relative;
+  display: inline-block;
+  height: 7vh;
+  width: 7vw;
+}
+.calendar .month-days .row .day .number {
+  line-height: 7vh;
+  text-align: center;
+  font-size: 3vh;
+  color: #999;
+}
+.calendar .month-days .row .day .number.current {
+  color: #222;
+}
+.calendar .month-days .row .day:nth-child(6),
+.calendar .month-days .row .day:nth-child(7) {
+  background: #ffe7e7;
+}
+.calendar .month-days .row .day:nth-child(6).event .dropdown-menu,
+.calendar .month-days .row .day:nth-child(7).event .dropdown-menu {
+  left: initial;
+  right: 7.5vw;
+}
+.calendar .month-days .row .day.event {
+  height: calc(7vh - 2px);
+  width: calc(7vw - 2px);
+  border: 1px solid #7293b6;
+}
+.calendar .month-days .row .day.event .number {
+  line-height: calc(7vh - 2px);
+}
+.calendar .month-days .row .day.event .dropdown-menu {
+  z-index: 1;
+  position: absolute;
+  display: none;
+  background: #fff;
+  width: 20vw;
+  padding: 1vh;
+  top: 0;
+  left: 7.5vw;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.calendar .month-days .row .day.event .dropdown-menu .dropdown-item {
+  margin-bottom: 1vh;
+  font-size: 1.8vh;
+}
+.calendar .month-days .row .day.event .dropdown-menu .dropdown-item.name {
+  font-size: 2.3vh;
+}
+.calendar .month-days .row .day.event .dropdown-menu .dropdown-item .dropdown-item:last-child {
+  margin-bottom: 0;
+}
+.calendar .month-days .row .day.event:hover .dropdown-menu {
+  display: block;
+}
+.capcha img {
+  max-width: calc(49vw - 2vh);
+}
+.capcha input.capcha-text {
+  display: block;
+  margin-top: 1vh;
+  width: calc(49vw - 2vh - 4px);
+  font-size: 2vh;
+}
+.capcha input.submit {
+  margin-top: 1vh;
+  width: calc(49vw - 2vh);
+  font-size: 2vh;
+}
+.reference {
+  margin: 1vh;
+}
+.reference .sel-box {
+  margin-top: 1vh;
+}
+.reference .sel-box label,
+.reference .sel-box select {
+  font-size: 2vh;
+}
+.reference .sel-box label {
+  margin-right: 1vh;
+}
+.request {
+  margin: 1vh;
+}
+.request textarea {
+  resize: none;
+  width: calc(49vw - 2vh - 6px);
+  font-size: 2vh;
+}
+.request .choose-date .title {
+  margin-top: 0.5vh;
+  font-size: 2.1vh;
+}
+.request .choose-date .input-box {
+  margin-top: 0.5vh;
+}
+.request .choose-date .input-box label {
+  display: inline-block;
+  width: 16vh;
+  font-size: 2vh;
+}
+.schedule {
+  padding: 1vh;
+}
+.schedule .t.days-lessons .r.time .d.lack {
+  width: 4vh;
+}
+.schedule .t.days-lessons .r.time .d.time-item {
+  text-align: center;
+}
+.schedule .t.days-lessons .r.row .d.lesson .l-name {
+  font-size: 2vh;
+}
+.schedule .t.days-lessons .r.row .d.lesson .l-classroom {
+  font-size: 2vh;
+}
+.schedule .t.days-lessons .r.row .d.lesson .l-teacher {
+  font-size: 2vh;
+}
+.schedule .t.days-lessons .h {
+  margin-bottom: 1vh;
+}
+.schedule .t.days-lessons .h .d {
+  font-size: 2.4vh;
+}
+.schedule .t.days-lessons .d.day-name {
+  align-items: center;
+  width: 3vh;
+  margin-right: 1vh;
+  font-size: 0;
+}
+.schedule .t.days-lessons .d.day-name .day-name-f {
+  font-size: 2vh;
+}
+.schedule .r {
+  display: flex;
+}
+.schedule .r > .d {
+  flex: auto;
+  width: 13vh;
+}
+.schedule .d {
+  font-size: 2vh;
+}
+.user-info-left {
+  padding: 1vh;
+}
+.user-info-left > * {
+  margin-bottom: 0.5vh;
+  padding-bottom: 0.5vh;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.user-info-left .user-name {
+  font-size: 2.4vh;
+  font-weight: bold;
+}
+.user-info-left .group {
+  font-size: 1.8vh;
+}
+.user-info-left .number-book {
+  font-size: 1.8vh;
+  color: #939393;
+}
+.user-info-left .l-item-box .l-title {
+  font-size: 2vh;
+  font-weight: 500;
+}
+.user-info-left .l-item-box .l-item {
+  font-size: 1.8vh;
+}
+.user-info-left .l-item-box .l-item .l-key,
+.user-info-left .l-item-box .l-item .l-value {
+  display: inline-block;
+}
+.user-info-left .l-item-box .l-item .l-key {
+  color: #939393;
+  width: 13vh;
+}
+@media screen and (max-width: 145vh) {
+  .user-info-left .l-item-box .l-item .l-key {
+    display: block;
+  }
+}
+.t1 {
+  font-size: 3vh;
+}
+.t2 {
+  font-size: 5vh;
+}
+.fp {
+  display: flex;
+}
+.fcenter {
+  align-items: center;
+  justify-content: center;
+}
+.fpi {
+  display: inline-flex;
+}
+.fc {
+  flex: auto;
+}
+.fc0 {
+  flex: auto 0;
+}
+.fwr {
+  flex-wrap: wrap;
+}
+.w1 {
+  width: 1px;
+}

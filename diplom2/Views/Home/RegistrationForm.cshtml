@@ -1,0 +1,31 @@
+﻿@model ModelRegForm;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход/Регистрация</title>
+    <link rel="stylesheet" href="~/css/stylesshet.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="~/js/site.js" defer></script>
+</head>
+<body>
+    <div id="shapka"></div>
+    <div id="content">
+        <form class="register" asp-controller="Home" asp-action="NewUser">
+            <input type="text" class="text" placeholder="Номер зачетки" autocomplete="off" asp-for="AccountNumber">
+            <input type="text" class="text" placeholder="Фамилия" autocomplete="off" asp-for="LastName" />
+            <input type="text" class="text" placeholder="Имя" autocomplete="off" asp-for="FirstName">
+            <input type="text" class="text" placeholder="Email" autocomplete="off" asp-for="Email">
+            <input type="text" class="text" placeholder="Группа '4АПОСШ'" autocomplete="off" asp-for="GroupName">
+            <input type="date" value="2000-01-01" autocomplete="off" asp-for="Dob">
+            <input type="password" class="text" placeholder="Пароль" asp-for="Password" />
+            <a asp-controller="Home" asp-action="LoginForm" class="biton">Вход</a>
+            <input type="submit" class="biton" value="Регистрация">
+        </form>
+    </div>
+    <div id="podval"></div>
+</body>
+</html>
