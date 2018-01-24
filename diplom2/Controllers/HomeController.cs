@@ -19,9 +19,11 @@ namespace diplom2.Controllers
             Startup.db = context;
         }
 
+        //for registration. it is a necessery?
         static Regex pass_regex = new Regex(@"^\w+$");
         static Regex account_regex = new Regex(@"^\d{4}$");
         static Regex name_regex = new Regex(@"^[А-Я][а-я]+$");
+        static Regex accountTeacher_regex = new Regex(@"^123455$");
 
         public UserTables tempUser;
 
@@ -86,7 +88,7 @@ namespace diplom2.Controllers
 
         }
 
-        //Получение джейсона событий календаря
+        //Получение джейсона событий календаря get json of a events
         public string getCalendarEvents(string year, string month)
         {
             //получение из бд события 
@@ -104,9 +106,7 @@ namespace diplom2.Controllers
             return JsonConvert.SerializeObject(ArrayOfEvents.listEvents);
         }
 
-
-
-        //Получение джейсона занятий
+        //Получение джейсона занятий get json a lessons 
         public string getLesson(string week, string groupName)
         {
             //ЧТЕНИЕ ИЗ БД РАСПИАНИЯ 
@@ -134,6 +134,13 @@ namespace diplom2.Controllers
             tempUser = new UserTables();
             tempUser = Startup.db.UserTables.Where(t => t.AccountNumber == accountNumber && t.Password == password).First();
             return JsonConvert.SerializeObject(tempUser);
+        }
+
+        //получение всех студентов группы
+        public string getAllUserGroup(string group)
+        {
+            ArrayOfAllUserGroup.listAllUserGroup = Startup.db.UserTables.Where(item => item.GroupName == group).ToList();
+            return JsonConvert.SerializeObject(ArrayOfAllUserGroup.listAllUserGroup);
         }
 
         public IActionResult GeneralForm(string accountNumber, string password)
@@ -165,6 +172,7 @@ namespace diplom2.Controllers
             bool accountValid = account_regex.IsMatch(accountNumber);
             bool lastNameValid = name_regex.IsMatch(lastName);
             bool firstNameValid = name_regex.IsMatch(firstName);
+            bool accountTeacherValid = accountTeacher_regex.IsMatch(accountNumber);
             //на мыло @
             bool emailValid = (email.Contains('@')) ? true : false;
 
