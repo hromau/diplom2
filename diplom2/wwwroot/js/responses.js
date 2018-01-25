@@ -10,16 +10,17 @@
         document.getElementById().write(obj.LessonTeacher);
         document.getElementById().write(obj.Room);
         //document.getElementById().write(obj.Group);
-    }
+    };
 }
 
 function getUser() {
     var resp = new HttpRequest;
+    resp.open('GET', '/Home/getUser?accountNumber=0000&password=0000', true);
     resp.onreadystatechange = function () {
         var obj = JSON.parse(resp.responseText);
         var user = obj.FirstName + ' ' + obj.LastName;
         document.getElementById('user-name').write(user);
-    }
+    };
 }
 
 function getStatement() {
@@ -33,11 +34,11 @@ function getStatement() {
         var applicationDate = obj.applicationDate;
         var verification = obj.verification;
         document.getElementById('').write(applicationDate);
-    }
+    };
 }
 
 function getTimeLessonNow() {
-    var today = new Date.now();
+    var today = new Date.now(0);
     var hour = today.getHours();
     var min = today.getMinutes();
     switch (hour) {
@@ -131,12 +132,12 @@ function getTimeLessonNow() {
                 return '0';
         default: return '0';
 
-    }
+    };
 }
 
-function getLessonMini(number) {
+function getLessonMini(number,week,group) {
     var resp = new HttpRequest;
-    resp.open('GET', '/Home/getLessonMini?week=1&groupName=3АПОСШ&number=' + number, true);
+    resp.open('GET', '/Home/getLessonMini?week='+week+'&groupName='+group+'&number=' + number, true);
     resp.send();
     resp.onreadystatechange = function () {
         var obj = JSON.parse(resp.responseText);
@@ -146,6 +147,29 @@ function getLessonMini(number) {
         document.getElementById('room').write(obj.Room);
         //document.getElementById().write(obj.Group);
         document.getElementById('lessonTeacher').write(obj.LessonTeacher);
-
-    }
+    };
 }
+
+function getEvents(year, month) {
+    year = new Date.now().getFullYear();
+    var resp = new HttpRequest;
+    resp.open('GET', '/Home/getCalendarEvents?year='+year+ '&month=' + month, true);
+    resp.send();
+    resp.onreadystatechange = function () {
+        var obj = JSON.parse(resp.responseText);
+        document.getElementById('nameEvent').write(obj.Name);
+    };
+}
+
+$.ajax(
+    {
+        type:"GET",
+        url:'/Home/getUser?accountNumber=0000&password=0000',
+        jsonp:resp,
+        success: function (resp) {
+            var obj = JSON.parse(resp);
+            document.getElementById('user-name').write(obj.FirstName);
+            
+        }
+    }
+);

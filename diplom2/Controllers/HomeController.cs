@@ -78,11 +78,11 @@ namespace diplom2.Controllers
                 //создание модели активного юзера
 
                 //return View("Your account is valid!\nHello "+activeUser.FirstName);
-                Response.Redirect("/Home/GeneralForm");
+                Response.Redirect("/Home/GeneralForm/");
             }
             else
                 //возвращение об ошибке
-                Response.Redirect("/Home/Error");
+                Response.Redirect("/Home/Error/");
             //return View("Your account is not valid!");
 
 
@@ -143,18 +143,18 @@ namespace diplom2.Controllers
             return JsonConvert.SerializeObject(ArrayOfAllUserGroup.listAllUserGroup);
         }
 
-        public IActionResult GeneralForm(string accountNumber, string password)
+        public IActionResult GeneralForm()//string accountNumber, string password)
         {
-            if (Startup.db.UserTables.Any(it => it.AccountNumber.Equals(accountNumber) && it.Password.Equals(password)))
-            {
-                ModelActiveUser tempUser = new ModelActiveUser(accountNumber);
-                //Response.Redirect("/Home/GeneralForm");
-                return View(tempUser);
-            }
-            else
+            //if (Startup.db.UserTables.Any(it => it.AccountNumber.Equals(accountNumber) && it.Password.Equals(password)))
+            //{
+            //    ModelActiveUser tempUser = new ModelActiveUser(accountNumber);
+            //    //Response.Redirect("/Home/GeneralForm");
+            //    return View(tempUser);
+            //}
+            //else
                 //возвращение об ошибке
                 //Response.Redirect("/Home/Error");
-            return View("Your account is not valid!");
+            return View();
             //return View(model);
         }
 

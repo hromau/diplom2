@@ -1,4 +1,4 @@
-﻿@model ModelActiveUser;
+﻿
 @{
     ViewData["Title"] = "General Form";
 }
@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="~/css/cabinet.css">
     <script src="~/js/vue.js"></script>
     <script src="~/js/cabinet.js" defer></script>
-    <script src="~/js/responses.js" defer></script>
+    <script src="~/js/responses.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
     <script id="template-schedule" type="text/x-template">
         <div class="schedule">
             <div class="t days-lessons">
@@ -116,17 +117,17 @@
             <div class="cabinet-box">
                 <div class="left">
                     <!-- тут ваша работа-->
-                    <div class="user-info-left">
-                        <div class="user-name">
-                            @Model.firstName
-                            @Model.lastName
+                    <div class="user-info-left" onload="getUser()">
+                        <div class="user-name" id="user-name" onload="$.ajax('GET')">
+                            @*@Model.firstName
+                            @Model.lastName*@
                         </div>
                         <div class="group">
-                            @Model.groupName
+                            @*@Model.groupName*@
                         </div>
                         <div class="number-book" title="Номер зачетной книжки">
                             <!--<label asp-for="AccountNumber"></label>-->
-                            @Model.accountNumber
+                            @*@Model.accountNumber*@
                         </div>
                         <div class="current-lesson l-item-box" onload="getLessonMini(getTimeLessonNow())">
                             <!-- текущий урок-->
@@ -168,13 +169,13 @@
                                 <div class="l-value" id="lessonTeacher">Артем Викторович</div>
                             </div>
                         </div>
-                        <div class="calendar-event l-item-box">
+                        <div class="calendar-event l-item-box" onload="getEvents(year,month)">
                             <!-- тут можно показывать не только сегодняшний-->
                             <!-- праздник, но и просто ближайший-->
                             <div class="l-title">Ближайшее событие</div>
                             <div class="l-item">
-                                <div class="l-key">Дата</div>
-                                <div class="l-value">1 января</div>
+                                <div class="l-key" id="dateEvent">Дата</div>
+                                <div class="l-value" id="nameEvent">1 января</div>
                             </div>
                             <div class="l-item">
                                 <div class="l-key">Событие</div>
