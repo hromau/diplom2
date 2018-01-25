@@ -19,9 +19,11 @@ namespace diplom2.Controllers
             Startup.db = context;
         }
 
+        //for registration. it is a necessery?
         static Regex pass_regex = new Regex(@"^\w+$");
         static Regex account_regex = new Regex(@"^\d{4}$");
         static Regex name_regex = new Regex(@"^[А-Я][а-я]+$");
+        static Regex accountTeacher_regex = new Regex(@"^123455$");
 
         public UserTables tempUser;
 
@@ -76,17 +78,17 @@ namespace diplom2.Controllers
                 //создание модели активного юзера
 
                 //return View("Your account is valid!\nHello "+activeUser.FirstName);
-                Response.Redirect("/Home/GeneralForm");
+                Response.Redirect("/Home/GeneralForm/");
             }
             else
                 //возвращение об ошибке
-                Response.Redirect("/Home/Error");
+                Response.Redirect("/Home/Error/");
             //return View("Your account is not valid!");
 
 
         }
 
-        //Получение джейсона событий календаря
+        //Получение джейсона событий календаря get json of a events
         public string getCalendarEvents(string year, string month)
         {
             //получение из бд события 
@@ -104,9 +106,7 @@ namespace diplom2.Controllers
             return JsonConvert.SerializeObject(ArrayOfEvents.listEvents);
         }
 
-
-
-        //Получение джейсона занятий
+        //Получение джейсона занятий get json a lessons 
         public string getLesson(string week, string groupName)
         {
             //ЧТЕНИЕ ИЗ БД РАСПИАНИЯ 
@@ -136,18 +136,25 @@ namespace diplom2.Controllers
             return JsonConvert.SerializeObject(tempUser);
         }
 
-        public IActionResult GeneralForm(string accountNumber, string password)
+        //получение всех студентов группы
+        public string getAllUserGroup(string group)
         {
-            if (Startup.db.UserTables.Any(it => it.AccountNumber.Equals(accountNumber) && it.Password.Equals(password)))
-            {
-                ModelActiveUser tempUser = new ModelActiveUser(accountNumber);
-                //Response.Redirect("/Home/GeneralForm");
-                return View(tempUser);
-            }
-            else
+            ArrayOfAllUserGroup.listAllUserGroup = Startup.db.UserTables.Where(item => item.GroupName == group).ToList();
+            return JsonConvert.SerializeObject(ArrayOfAllUserGroup.listAllUserGroup);
+        }
+
+        public IActionResult GeneralForm()//string accountNumber, string password)
+        {
+            //if (Startup.db.UserTables.Any(it => it.AccountNumber.Equals(accountNumber) && it.Password.Equals(password)))
+            //{
+            //    ModelActiveUser tempUser = new ModelActiveUser(accountNumber);
+            //    //Response.Redirect("/Home/GeneralForm");
+            //    return View(tempUser);
+            //}
+            //else
                 //возвращение об ошибке
                 //Response.Redirect("/Home/Error");
-            return View("Your account is not valid!");
+            return View();
             //return View(model);
         }
 
@@ -165,6 +172,7 @@ namespace diplom2.Controllers
             bool accountValid = account_regex.IsMatch(accountNumber);
             bool lastNameValid = name_regex.IsMatch(lastName);
             bool firstNameValid = name_regex.IsMatch(firstName);
+            bool accountTeacherValid = accountTeacher_regex.IsMatch(accountNumber);
             //на мыло @
             bool emailValid = (email.Contains('@')) ? true : false;
 
